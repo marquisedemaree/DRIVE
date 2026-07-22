@@ -22,7 +22,7 @@ Run the full DRIVE pipeline: `python main.py`
 **1. Fleet Telemetry Pipeline:** Ingests telemetry, validates and transforms it, organizes it into datasets, and serves those datasets to downstream analytics and visualization tools.
 
 ### Analytics Mode
-**Date Source:** Tesla Model 3 Autopilot On-road dataset.
+**Date Source:** Tesla Model 3 Autopilot On-road dataset.<br>
 **Purpose:** Demonstrate how real vehicle telemetry can be sourced, transformed, analyzed, packaged into useful datasets, and turned into actionable engineering insight.
 
 **2. Metrics Engine:** Derives meaningful driving events and performance metrics from telemetry, then surfaces trends, patterns, and notable behaviors that support engineering decisions and deeper investigation.
@@ -34,7 +34,7 @@ Run the full DRIVE pipeline: `python main.py`
 **5. Interactive Fleet Intelligence Dashboard:** An interactive analytical interface that moves from high-level metrics to event categories, individual drives, specific scenarios, and derived datasets so users can understand what changed, where it occurred, and what deserves attention.
 
 ### Scale Mode
-**Date Source:** Simulated fleet telemetry stream
+**Date Source:** Simulated fleet telemetry stream<br>
 **Purpose:** Demonstrate how the platform behaves under high-volume fleet conditions that cannot be reproduced with the limited public dataset.
 
 **6. Fleet Pipeline Observability & Automated Recovery:** Continuously monitor pipeline health, surface operational problems, record system behavior, and demonstrate automated responses to failures, load spikes, processing delays, and data-quality issues.
