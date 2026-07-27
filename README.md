@@ -1,6 +1,12 @@
 # DRIVE
 DRIVE - Data Reporting Infrastructure for Vehicle Events<br>
-*Data engineering platform for analyzing vehicle telemetry to measure self-driving performance.*
+
+DRIVE is an end-to-end pipeline that analyzes Tesla Autopilot disengagement events to evaluate self-driving performance. From ingesting raw telemetry, to visualizing metrics through a dashboard, the system provides insight into questions such as:
+- In what types of situations are disengagements occurring?
+- What are typical vehicle dynamics at the moment of disengagement?
+- What behavior is Autopilot exhibiting prior to disengagement?
+- What corrections are made by the driver following disengagement?
+Piecing this information together into a temporal analysis provides context for each event and allows engineers to identify meaningful connections between desired behavior and actual self-driving performance.
 
 **Date Source:** Tesla Model 3 Autopilot On-road dataset.<br>
 **Purpose:** Demonstrate how real vehicle telemetry can be sourced, transformed, analyzed, packaged into useful datasets, and turned into actionable engineering insight.
