@@ -5,7 +5,8 @@ DRIVE is an end-to-end pipeline that analyzes Tesla Autopilot disengagement even
 - In what types of situations are disengagements occurring?
 - What are typical vehicle dynamics at the moment of disengagement?
 - What behavior is Autopilot exhibiting prior to disengagement?
-- What corrections are made by the driver following disengagement?<br>
+- What corrections are made by the driver following disengagement?
+
 Piecing this information together into a temporal analysis provides context for each event and allows engineers to identify meaningful connections between desired behavior and actual self-driving performance.
 
 **Date Source:** Tesla Model 3 Autopilot On-road dataset.<br>
