@@ -9,8 +9,7 @@ DRIVE is an end-to-end pipeline that analyzes Tesla Autopilot disengagement even
 
 Piecing this information together into a temporal analysis provides context for each event and allows engineers to identify meaningful connections between desired behavior and actual self-driving performance.
 
-**Date Source:** Tesla Model 3 Autopilot On-road dataset.<br>
-**Purpose:** Demonstrate how real vehicle telemetry can be sourced, transformed, analyzed, packaged into useful datasets, and turned into actionable engineering insight.
+**Date Source:** Tesla Model 3 Autopilot On-road dataset: https://livewire.energy.gov/ds/ld-cav-functionality/tesla-model3<br>
 
 ## Usage
 Run the full DRIVE pipeline: `python main.py`
