@@ -13,19 +13,19 @@ Combining these observations into a temporal analysis provides context for each 
 
 ## Pipeline Overview
 <img width="1458" height="263" alt="Screenshot 2026-07-30 at 12 38 58 PM" src="https://github.com/user-attachments/assets/678b5e46-a169-4cb4-9a60-b0eceb9716f6" />
-Pipeline Overview summarizes the ingestion stage and provides visibility into the transformation of raw telemetry into a dataset for analysis. When the pipeline executes, it:
-1. Reads CSV files located in 'DRIVE/data/tesla-model3'.
-1. Validates required fields and removes malformed records.
-1. Produces a SQLite telemetry table for downstream analysis.
-1. Records processing statistics for monitoring data quality.
+Pipeline Overview summarizes the ingestion stage and provides visibility into the transformation of raw telemetry into a dataset for analysis. When the pipeline executes, it will:
+- Read CSV files located in 'DRIVE/data/tesla-model3'.
+- Validate required fields and remove malformed records.
+- Produce a SQLite telemetry table for downstream analysis.
+- Record processing statistics for monitoring data quality.
 
 The dashboard reports four metrics:
 | Metric | Description |
 |--------|-------------|
-| **Files Processed** | Number of telemetry CSV files successfully processed during pipeline execution. |
+| **Files Processed** | Number of telemetry CSV files successfully processed. |
 | **Rows Ingested** | Total number of raw telemetry records read from the input files. |
-| **Rows Served** | Number of validated telemetry records written to the SQLite database for downstream analysis. |
-| **Rows Dropped** | Number of records excluded during validation because they were incomplete, malformed, or otherwise invalid. |
+| **Rows Served** | Number of validated telemetry records written to the SQLite database. |
+| **Rows Dropped** | Number of invalid records excluded during validation. |
 
 ## Usage
 Run the full DRIVE pipeline: `python main.py`
