@@ -28,6 +28,38 @@ The dashboard reports four metrics:
 | **Rows Served** | Number of validated telemetry records written to the SQLite database. |
 | **Rows Dropped** | Number of invalid records excluded during validation. |
 
+## Event Overview
+<img width="1460" height="699" alt="Screenshot 2026-07-30 at 1 11 51 PM" src="https://github.com/user-attachments/assets/4db7a349-c1bf-4360-979c-9478f7d46d37"/>
+
+Event Overview summarizes vehicle dynamics at the moment of disengagement. During this stage the system identifies records defined by an Autopilot state transition from 'ON' to 'OFF'.
+
+The dashboard reports statistics for detected events:
+| Metric | Description |
+|--------|-------------|
+| **Number of Events** | Total number of Autopilot disengagement events detected in the telemetry dataset. |
+| **Average Speed (km/h)** | Mean vehicle speed at the moment of Autopilot disengagement across all detected events. |
+| **Average Longitudinal Acceleration (g)** | Mean longitudinal acceleration at the moment of disengagement, indicating average braking or acceleration behavior. |
+| **Average Lateral Acceleration (g)** | Mean lateral acceleration at the moment of disengagement, indicating average turning behavior. |
+| **Speed Distribution** | Histogram showing the distribution of vehicle speeds at the moment of disengagement. |
+| **Longitudinal Acceleration Distribution** | Histogram showing the distribution of longitudinal acceleration values at disengagement, highlighting braking and acceleration trends. |
+| **Lateral Acceleration Distribution** | Histogram showing the distribution of lateral acceleration values at disengagement, illustrating the range of turning conditions during disengagement events. |
+
+## Aggregate Scenario Analysis
+<img width="1461" height="576" alt="Screenshot 2026-07-30 at 1 50 00 PM" src="https://github.com/user-attachments/assets/87f53c77-b48a-4974-bf30-abe3fd8f64d0"/>
+
+Aggregate Scenario Analysis expands each disengagement by extracting five seconds of telemetry from before and after each event.
+
+The dashboard visualizes an aggregate of all scenarios to reveal overall trends:
+| Visualization | Description |
+|--------------|-------------|
+| **Vehicle Speed** | Line chart showing the minimum, average, and maximum vehicle speed across all scenarios relative to the moment of Autopilot disengagement. |
+| **Longitudinal Acceleration** | Line chart showing the minimum, average, and maximum longitudinal acceleration before and after disengagement, highlighting braking and acceleration behavior. |
+| **Lateral Acceleration** | Line chart showing the minimum, average, and maximum lateral acceleration throughout the scenario window, illustrating steering behavior before and after disengagement. |
+| **Disengagement Marker** | Vertical reference line at **0 seconds** indicating the exact moment Autopilot disengaged, providing a common alignment point for all aggregated scenarios. |
+
+
+
+
 ## Usage
 Run the full DRIVE pipeline: `python main.py`
 
