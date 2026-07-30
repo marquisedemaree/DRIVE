@@ -14,10 +14,10 @@ Combining these observations into a temporal analysis provides context for each 
 ## Pipeline Overview
 <img width="1458" height="263" alt="Screenshot 2026-07-30 at 12 38 58 PM" src="https://github.com/user-attachments/assets/678b5e46-a169-4cb4-9a60-b0eceb9716f6" />
 Pipeline Overview summarizes the ingestion stage and provides visibility into the transformation of raw telemetry into a dataset for analysis. When the pipeline executes, it:
-   1. Reads CSV files located in 'DRIVE/data/tesla-model3'.
-   2. Validates required fields and removes malformed records.
-   3. Produces a SQLite telemetry table for downstream analysis.
-   4. Records processing statistics for monitoring data quality.
+1. Reads CSV files located in 'DRIVE/data/tesla-model3'.
+1. Validates required fields and removes malformed records.
+1. Produces a SQLite telemetry table for downstream analysis.
+1. Records processing statistics for monitoring data quality.
 
 The dashboard reports four metrics:
 | Metric | Description |
