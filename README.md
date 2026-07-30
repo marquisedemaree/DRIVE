@@ -29,7 +29,7 @@ The dashboard reports four metrics:
 | **Rows Dropped** | Number of invalid records excluded during validation. |
 
 ## Event Overview
-<img width="1460" height="699" alt="Screenshot 2026-07-30 at 1 11 51 PM" src="https://github.com/user-attachments/assets/4db7a349-c1bf-4360-979c-9478f7d46d37"/>
+<img width="1463" height="699" alt="Screenshot 2026-07-30 at 4 48 35 PM" src="https://github.com/user-attachments/assets/ba0fb833-d516-4392-8ca4-75a032215812"/>
 
 Event Overview summarizes vehicle dynamics at the moment of disengagement. During this stage the system identifies records defined by an Autopilot state transition from 'ON' to 'OFF'.
 
@@ -42,7 +42,7 @@ The dashboard reports statistics for detected events:
 | **Average Lateral Acceleration (g)** | Turning at the moment of disengagement. |
 
 ## Aggregate Scenario Analysis
-<img width="1461" height="576" alt="Screenshot 2026-07-30 at 1 50 00 PM" src="https://github.com/user-attachments/assets/87f53c77-b48a-4974-bf30-abe3fd8f64d0"/>
+<img width="1464" height="571" alt="Screenshot 2026-07-30 at 4 49 02 PM" src="https://github.com/user-attachments/assets/705f02fb-09ba-4f5f-ad44-be649a9c5455"/>
 
 Aggregate Scenario Analysis expands each disengagement by extracting five seconds of telemetry from before and after each event. The dashboard visualizes an aggregate of all scenarios to reveal overall trends.
 
@@ -79,7 +79,7 @@ This sortable table allows for the selection of a single scenario for further an
 | **Turning Threshold Crossing (s)** | Time relative to disengagement when the hard turning threshold was first exceeded. |
 
 ## Scenario Drill-Down
-<img width="1461" height="774" alt="Screenshot 2026-07-30 at 4 19 08 PM" src="https://github.com/user-attachments/assets/996752db-ea5a-45ed-90ae-e5a8cad1c1c6"/>
+<img width="1460" height="777" alt="Screenshot 2026-07-30 at 4 49 46 PM" src="https://github.com/user-attachments/assets/590ad19b-5bcb-47a7-b853-c243d99086e5" />
 
 Scenario Drill-Down provides a detailed view of a single critical scenario selected from the Critical Findings Table. Metadata is provided for the scenario and includes classification, disengagement timestamp, and peak vehicle dynamics.
 
