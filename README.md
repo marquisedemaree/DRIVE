@@ -38,28 +38,52 @@ The dashboard reports statistics for detected events:
 |--------|-------------|
 | **Number of Events** | Total number of Autopilot disengagement events detected in the telemetry dataset. |
 | **Average Speed (km/h)** | Mean vehicle speed at the moment of Autopilot disengagement across all detected events. |
-| **Average Longitudinal Acceleration (g)** | Mean longitudinal acceleration at the moment of disengagement, indicating average braking or acceleration behavior. |
-| **Average Lateral Acceleration (g)** | Mean lateral acceleration at the moment of disengagement, indicating average turning behavior. |
-| **Speed Distribution** | Histogram showing the distribution of vehicle speeds at the moment of disengagement. |
-| **Longitudinal Acceleration Distribution** | Histogram showing the distribution of longitudinal acceleration values at disengagement, highlighting braking and acceleration trends. |
-| **Lateral Acceleration Distribution** | Histogram showing the distribution of lateral acceleration values at disengagement, illustrating the range of turning conditions during disengagement events. |
+| **Average Longitudinal Acceleration (g)** | Braking/acceleration at the moment of disengagement. |
+| **Average Lateral Acceleration (g)** | Turning at the moment of disengagement. |
 
 ## Aggregate Scenario Analysis
 <img width="1461" height="576" alt="Screenshot 2026-07-30 at 1 50 00 PM" src="https://github.com/user-attachments/assets/87f53c77-b48a-4974-bf30-abe3fd8f64d0"/>
 
-Aggregate Scenario Analysis expands each disengagement by extracting five seconds of telemetry from before and after each event.
+Aggregate Scenario Analysis expands each disengagement by extracting five seconds of telemetry from before and after each event. The dashboard visualizes an aggregate of all scenarios to reveal overall trends.
 
-The dashboard visualizes an aggregate of all scenarios to reveal overall trends:
-| Visualization | Description |
-|--------------|-------------|
-| **Vehicle Speed** | Line chart showing the minimum, average, and maximum vehicle speed across all scenarios relative to the moment of Autopilot disengagement. |
-| **Longitudinal Acceleration** | Line chart showing the minimum, average, and maximum longitudinal acceleration before and after disengagement, highlighting braking and acceleration behavior. |
-| **Lateral Acceleration** | Line chart showing the minimum, average, and maximum lateral acceleration throughout the scenario window, illustrating steering behavior before and after disengagement. |
-| **Disengagement Marker** | Vertical reference line at **0 seconds** indicating the exact moment Autopilot disengaged, providing a common alignment point for all aggregated scenarios. |
+## Critical Insights
+<img width="1461" height="369" alt="Screenshot 2026-07-30 at 3 49 28 PM" src="https://github.com/user-attachments/assets/2baf68f5-9ba2-4537-b0aa-664d0ea6b592"/>
 
+Critical Insights applies configurable thresholds to identify the most significant Autopilot disengagements.
 
+The overview assesses the frequency of aggressive corrective action:
+| Metric | Description |
+|--------|-------------|
+| **Hard Braking Threshold** | Longitudinal acceleration threshold used to identify harsh braking events. |
+| **Hard Turning Threshold** | Lateral acceleration threshold used to identify hard turning events. |
+| **Critical Findings** | Total number of scenarios that exceeded one or more thresholds. |
+| **Scenarios with Hard Braking** | Percentage of analyzed scenarios containing at least one harsh braking event after disengagement. |
+| **Scenarios with Hard Turning** | Percentage of analyzed scenarios containing at least one hard turning event after disengagement. |
 
+## Critical Findings Table
+<img width="1461" height="419" alt="Screenshot 2026-07-30 at 4 00 00 PM" src="https://github.com/user-attachments/assets/1a732a25-e5e8-42f9-9352-9c17b319c14d"/>
 
+The Critical Findings Table lists every critical scenario identified by the threshold analysis, along with metrics summaries. 
+
+This sortable table allows for the selection of a single scenario for further analysis in the following section:
+| Column | Description |
+|--------|-------------|
+| **Scenario ID** | Unique identifier for each driving scenario. |
+| **Drive ID** | Identifier of the source drive containing the disengagement event. |
+| **Disengagement Timestamp** | Timestamp at which Autopilot disengaged. |
+| **Speed (km/h)** | Vehicle speed at the moment of disengagement. |
+| **Finding Type** | Classification of the critical event (Harsh Braking, Hard Turning, or both). |
+| **Peak Braking (g)** | Maximum longitudinal braking recorded after disengagement. |
+| **Peak Lateral Acceleration (g)** | Maximum lateral acceleration recorded after disengagement. |
+| **Braking Threshold Crossing (s)** | Time relative to disengagement when the harsh braking threshold was first exceeded. |
+| **Turning Threshold Crossing (s)** | Time relative to disengagement when the hard turning threshold was first exceeded. |
+
+## Scenario Drill-Down
+<img width="1461" height="774" alt="Screenshot 2026-07-30 at 4 19 08 PM" src="https://github.com/user-attachments/assets/996752db-ea5a-45ed-90ae-e5a8cad1c1c6"/>
+
+Scenario Drill-Down provides a detailed view of a single critical scenario selected from the Critical Findings Table. Metadata is provided for the scenario and includes classification, disengagement timestamp, and peak vehicle dynamics.
+
+This section reconstructs the full sequence of vehicle dynamics surrounding a single Autopilot disengagement. The dashboard visualizes a full telemetry timeline showing the transition from Autopilot to driver intervention.
 
 ## Usage
 Run the full DRIVE pipeline: `python main.py`
