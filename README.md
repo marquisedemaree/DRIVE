@@ -54,7 +54,7 @@ Critical Insights applies configurable thresholds to identify the most significa
 The overview assesses the frequency of aggressive corrective action:
 | Metric | Description |
 |--------|-------------|
-| **Hard Braking Threshold** | Longitudinal acceleration threshold used to identify harsh braking events. |
+| **Harsh Braking Threshold** | Longitudinal acceleration threshold used to identify harsh braking events. |
 | **Hard Turning Threshold** | Lateral acceleration threshold used to identify hard turning events. |
 | **Critical Findings** | Total number of scenarios that exceeded one or more thresholds. |
 | **Scenarios with Hard Braking** | Percentage of analyzed scenarios containing at least one harsh braking event after disengagement. |
@@ -75,8 +75,6 @@ This sortable table allows for the selection of a single scenario for further an
 | **Finding Type** | Classification of the critical event (Harsh Braking, Hard Turning, or both). |
 | **Peak Braking (g)** | Maximum longitudinal braking recorded after disengagement. |
 | **Peak Lateral Acceleration (g)** | Maximum lateral acceleration recorded after disengagement. |
-| **Braking Threshold Crossing (s)** | Time relative to disengagement when the harsh braking threshold was first exceeded. |
-| **Turning Threshold Crossing (s)** | Time relative to disengagement when the hard turning threshold was first exceeded. |
 
 ## Scenario Drill-Down
 <img width="1460" height="777" alt="Screenshot 2026-07-30 at 4 49 46 PM" src="https://github.com/user-attachments/assets/590ad19b-5bcb-47a7-b853-c243d99086e5" />
