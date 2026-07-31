@@ -11,7 +11,9 @@ Combining these observations into a temporal analysis provides context for each 
 
 **Data Source:** Tesla Model 3 Autopilot On-road: https://livewire.energy.gov/ds/ld-cav-functionality/tesla-model3<br>
 
-## Pipeline Overview
+## Features
+
+### Pipeline Overview
 <img width="1458" height="263" alt="Screenshot 2026-07-30 at 12 38 58 PM" src="https://github.com/user-attachments/assets/678b5e46-a169-4cb4-9a60-b0eceb9716f6"/>
 
 Pipeline Overview summarizes the ingestion stage and provides visibility into the transformation of raw telemetry into a dataset for analysis. When the pipeline executes, it will:
@@ -28,7 +30,7 @@ The dashboard reports four metrics:
 | **Rows Served** | Number of validated telemetry records written to the SQLite database. |
 | **Rows Dropped** | Number of invalid records excluded during validation. |
 
-## Event Overview
+### Event Overview
 <img width="1463" height="699" alt="Screenshot 2026-07-30 at 4 48 35 PM" src="https://github.com/user-attachments/assets/ba0fb833-d516-4392-8ca4-75a032215812"/>
 
 Event Overview summarizes vehicle dynamics at the moment of disengagement. During this stage the system identifies records defined by an Autopilot state transition from 'ON' to 'OFF'.
@@ -41,12 +43,12 @@ The dashboard reports statistics for detected events:
 | **Average Longitudinal Acceleration (g)** | Braking/acceleration at the moment of disengagement. |
 | **Average Lateral Acceleration (g)** | Turning at the moment of disengagement. |
 
-## Aggregate Scenario Analysis
+### Aggregate Scenario Analysis
 <img width="1464" height="571" alt="Screenshot 2026-07-30 at 4 49 02 PM" src="https://github.com/user-attachments/assets/705f02fb-09ba-4f5f-ad44-be649a9c5455"/>
 
 Aggregate Scenario Analysis expands each disengagement by extracting five seconds of telemetry from before and after each event. The dashboard visualizes an aggregate of all scenarios to reveal overall trends.
 
-## Critical Insights
+### Critical Insights
 <img width="1461" height="369" alt="Screenshot 2026-07-30 at 3 49 28 PM" src="https://github.com/user-attachments/assets/2baf68f5-9ba2-4537-b0aa-664d0ea6b592"/>
 
 Critical Insights applies configurable thresholds to identify the most significant Autopilot disengagements.
@@ -60,7 +62,7 @@ The overview assesses the frequency of aggressive corrective action:
 | **Scenarios with Hard Braking** | Percentage of analyzed scenarios containing at least one harsh braking event after disengagement. |
 | **Scenarios with Hard Turning** | Percentage of analyzed scenarios containing at least one hard turning event after disengagement. |
 
-## Critical Findings Table
+### Critical Findings Table
 <img width="1461" height="419" alt="Screenshot 2026-07-30 at 4 00 00 PM" src="https://github.com/user-attachments/assets/1a732a25-e5e8-42f9-9352-9c17b319c14d"/>
 
 The Critical Findings Table lists every critical scenario identified by the threshold analysis, along with metrics summaries. 
@@ -76,7 +78,7 @@ This sortable table allows for the selection of a single scenario for further an
 | **Peak Braking (g)** | Maximum longitudinal braking recorded after disengagement. |
 | **Peak Lateral Acceleration (g)** | Maximum lateral acceleration recorded after disengagement. |
 
-## Scenario Drill-Down
+### Scenario Drill-Down
 <img width="1460" height="777" alt="Screenshot 2026-07-30 at 4 49 46 PM" src="https://github.com/user-attachments/assets/590ad19b-5bcb-47a7-b853-c243d99086e5" />
 
 Scenario Drill-Down provides a detailed view of a single critical scenario selected from the Critical Findings Table. Metadata is provided for the scenario and includes classification, disengagement timestamp, and peak vehicle dynamics.
