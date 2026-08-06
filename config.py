@@ -1,16 +1,39 @@
+import os
 from pathlib import Path
 
 # Project paths
 BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 FRONTEND_DIST_DIR = FRONTEND_DIR / "dist"
-DATA_DIR = BASE_DIR / "data"
-TESLA_MODEL3_DATA_DIR = DATA_DIR / "tesla-model3"
 
-DATABASE_PATH = DATA_DIR / "drive.db"
+DATA_DIR = Path(
+    os.getenv(
+        "DRIVE_DATA_DIR",
+        str(BASE_DIR / "data"),
+    )
+)
+
+TESLA_MODEL3_DATA_DIR = Path(
+    os.getenv(
+        "DRIVE_TELEMETRY_DIR",
+        str(DATA_DIR / "tesla-model3"),
+    )
+)
+
+DATABASE_PATH = Path(
+    os.getenv(
+        "DRIVE_DATABASE_PATH",
+        str(DATA_DIR / "drive.db"),
+    )
+)
+
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
+
 TELEMETRY_TABLE = "telemetry"
 INGESTION_TABLE = "ingestion_runs"
 CSV_PATTERN = "*.csv"
+
 SQL_CHUNK_SIZE = 1_000
 
 # Application server settings.
@@ -31,7 +54,7 @@ MODE_DESCRIPTIONS = {
     ),
 }
 
-# metrics
+# Metrics
 EVENTS_TABLE = "driving_events"
 DRIVE_METRICS_TABLE = "drive_metrics"
 HARD_BRAKING_THRESHOLD_MPS2 = -3.0
@@ -40,3 +63,5 @@ HIGH_LATERAL_ACCEL_THRESHOLD_MPS2 = 2.5
 SHARP_STEERING_RATE_THRESHOLD_DEG_S = 120.0
 MIN_EVENT_DURATION_SECONDS = 0.3
 EVENT_COOLDOWN_SECONDS = 0.5
+HARD_BRAKING = 0.1
+HARD_TURNING = 0.1
