@@ -1,159 +1,217 @@
-import { useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
-import AnalyticsDashboard from "./components/AnalyticsDashboard";
-import ScaleDashboard from "./components/ScaleDashboard";
+import {
+  getAnalysis,
+  getScenarioInsight,
+} from "./api";
 
-export default function App() {
-  const [modes, setModes] = useState({});
-  const [mode, setMode] = useState("analytics");
-  const [dashboard, setDashboard] = useState(null);
-  const [error, setError] = useState("");
+import PipelineOverview from "./components/PipelineOverview";
+import EventOverview from "./components/EventOverview";
+import AggregateAnalysis from "./components/AggregateAnalysis";
+import CriticalInsights from "./components/CriticalInsights";
+
+
+function App() {
+  const [analysis, setAnalysis] = useState(null);
+
+  const [
+    selectedScenarioId,
+    setSelectedScenarioId,
+  ] = useState(null);
+
+  const [
+    scenarioInsight,
+    setScenarioInsight,
+  ] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+
+  const [
+    scenarioLoading,
+    setScenarioLoading,
+  ] = useState(false);
+
+  const [error, setError] = useState(null);
+
+  const [
+    scenarioError,
+    setScenarioError,
+  ] = useState(null);
+
 
   useEffect(() => {
-    loadInitialState();
+    let cancelled = false;
+
+    async function loadAnalysis() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const data = await getAnalysis();
+
+        if (!cancelled) {
+          setAnalysis(data);
+        }
+      } catch (requestError) {
+        if (!cancelled) {
+          setError(
+            requestError instanceof Error
+              ? requestError.message
+              : "Unable to load fleet analysis.",
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadAnalysis();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  async function loadInitialState() {
-    try {
-      const [
-        modesResponse,
-        modeResponse,
-        dashboardResponse,
-      ] = await Promise.all([
-        fetch("/api/modes"),
-        fetch("/api/mode"),
-        fetch("/api/dashboard"),
-      ]);
 
-      if (
-        !modesResponse.ok ||
-        !modeResponse.ok ||
-        !dashboardResponse.ok
-      ) {
-        throw new Error("Unable to load DRIVE.");
+  const handleSelectScenario = useCallback(
+    async (scenarioId) => {
+      if (!scenarioId) {
+        return;
       }
 
-      const modesData =
-        await modesResponse.json();
+      setSelectedScenarioId(scenarioId);
+      setScenarioInsight(null);
+      setScenarioError(null);
+      setScenarioLoading(true);
 
-      const modeData =
-        await modeResponse.json();
+      try {
+        const data = await getScenarioInsight(
+          scenarioId,
+        );
 
-      const dashboardData =
-        await dashboardResponse.json();
+        setScenarioInsight(data);
+      } catch (requestError) {
+        setScenarioError(
+          requestError instanceof Error
+            ? requestError.message
+            : "Unable to load scenario details.",
+        );
+      } finally {
+        setScenarioLoading(false);
+      }
+    },
+    [],
+  );
 
-      setModes(modesData);
-      setMode(modeData.mode);
-      setDashboard(dashboardData);
-    } catch (err) {
-      setError(err.message);
-    }
+
+  if (loading) {
+    return (
+      <main className="app">
+        <div className="loading-state">
+          <h1>DRIVE</h1>
+          <p>Loading fleet analysis...</p>
+        </div>
+      </main>
+    );
   }
 
-  async function handleModeChange(event) {
-    const selectedMode =
-      event.target.value;
 
-    setMode(selectedMode);
-    setError("");
-
-    try {
-      const modeResponse = await fetch(
-        "/api/mode",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            mode: selectedMode,
-          }),
-        }
-      );
-
-      if (!modeResponse.ok) {
-        throw new Error(
-          "Unable to change operating mode."
-        );
-      }
-
-      const dashboardResponse =
-        await fetch("/api/dashboard");
-
-      if (!dashboardResponse.ok) {
-        throw new Error(
-          "Unable to load dashboard."
-        );
-      }
-
-      setDashboard(
-        await dashboardResponse.json()
-      );
-    } catch (err) {
-      setError(err.message);
-    }
+  if (error) {
+    return (
+      <main className="app">
+        <div className="error-state">
+          <h1>DRIVE</h1>
+          <h2>Unable to load dashboard</h2>
+          <p>{error}</p>
+        </div>
+      </main>
+    );
   }
 
-  const description =
-    modes[mode]?.description ?? "";
+
+  if (!analysis) {
+    return (
+      <main className="app">
+        <div className="error-state">
+          <h1>DRIVE</h1>
+          <p>No analysis data is available.</p>
+        </div>
+      </main>
+    );
+  }
+
 
   return (
-    <main className="app-shell">
-      <header className="mode-panel">
-        <div className="brand-row">
-          <div>
-            <p className="eyebrow">
-              Fleet Data Engineering
-            </p>
+    <main className="app">
+      <header className="dashboard-header">
+        <div>
+          <p className="dashboard-eyebrow">
+            DRIVE
+          </p>
 
-            <h1>DRIVE</h1>
-          </div>
+          <h1>
+            {analysis.title ||
+              "Fleet Data Analysis"}
+          </h1>
 
-          <label className="mode-selector">
-            <span>Operating Mode</span>
-
-            <select
-              value={mode}
-              onChange={handleModeChange}
-            >
-              <option value="analytics">
-                Analytics Mode
-              </option>
-
-              <option value="scale">
-                Scale Mode
-              </option>
-            </select>
-          </label>
+          <p>
+            Analyze Autopilot disengagements from vehicle
+            telemetry.
+          </p>
         </div>
 
-        <p className="mode-description">
-          {description}
-        </p>
+        {analysis.status && (
+          <div className="dashboard-status">
+            {analysis.status}
+          </div>
+        )}
       </header>
 
-      <section className="dashboard-container">
-        {error && (
-          <p className="error-message">
-            {error}
-          </p>
-        )}
 
-        {!error &&
-          mode === "analytics" && (
-            <AnalyticsDashboard
-              dashboard={dashboard}
-            />
-          )}
+      <PipelineOverview
+        pipeline={analysis.pipeline}
+      />
 
-        {!error &&
-          mode === "scale" && (
-            <ScaleDashboard
-              dashboard={dashboard}
-            />
-          )}
-      </section>
+
+      <EventOverview
+        events={analysis.events}
+      />
+
+
+      <AggregateAnalysis
+        aggregate={analysis.aggregate}
+      />
+
+
+      <CriticalInsights
+        criticalAnalysis={
+          analysis.critical_analysis
+        }
+        selectedScenarioId={
+          selectedScenarioId
+        }
+        scenarioInsight={
+          scenarioInsight
+        }
+        scenarioLoading={
+          scenarioLoading
+        }
+        scenarioError={
+          scenarioError
+        }
+        onSelectScenario={
+          handleSelectScenario
+        }
+      />
     </main>
   );
 }
+
+
+export default App;
