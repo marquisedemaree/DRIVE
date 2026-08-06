@@ -1,0 +1,31 @@
+services:
+  drive:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: drive:latest
+    container_name: drive
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      DRIVE_DATA_DIR: /app/runtime
+      DRIVE_DATABASE_PATH: /app/runtime/drive.db
+      DRIVE_TELEMETRY_DIR: /app/input/tesla-model3
+
+    volumes:
+      - type: bind
+        source: ./data/tesla-model3
+        target: /app/input/tesla-model3
+        read_only: true
+
+      - type: volume
+        source: drive-runtime
+        target: /app/runtime
+
+    restart: unless-stopped
+
+volumes:
+  drive-runtime:
