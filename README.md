@@ -10,6 +10,47 @@ Combining these observations into a temporal analysis provides context for each 
 
 **Data Source:** Tesla Model 3 Autopilot On-road: https://livewire.energy.gov/ds/ld-cav-functionality/tesla-model3<br>
 
+## Setup
+
+### Prerequisites
+
+- Git
+- Docker
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/marquisedemaree/DRIVE.git
+cd DRIVE
+```
+### 2. Build and start DRIVE
+
+```bash
+docker compose up --build
+```
+
+Docker will:
+
+- Build the React frontend
+- Install Python dependencies
+- Execute the analytics pipeline
+- Generate the SQLite analytics database
+- Start the FastAPI server
+
+### 3. Open the dashboard
+
+Open your browser and navigate to:
+
+```
+http://localhost:8000
+```
+
+### Stopping DRIVE
+
+```bash
+docker compose down
+```
+
 ## Features
 
 ### Pipeline Overview
@@ -41,31 +82,3 @@ The Critical Findings Table lists every critical scenario identified by the thre
 <img width="1460" height="777" alt="Screenshot 2026-07-30 at 4 49 46 PM" src="https://github.com/user-attachments/assets/590ad19b-5bcb-47a7-b853-c243d99086e5" />
 
 Scenario Drill-Down provides a detailed view of a single critical scenario selected from the Critical Findings Table. This section reconstructs the full sequence of vehicle dynamics surrounding a single Autopilot disengagement. The dashboard visualizes a telemetry timeline showing the transition from Autopilot to driver intervention.
-
-## Usage
-Run the full DRIVE pipeline: `python main.py`
-
-**This will:**
-- Start the FastAPI backend and serve the React dashboard.
-- Process vehicle telemetry for analysis.
-- Calculate fleet performance metrics and identify driving events.
-- Generate actionable insights from fleet data.
-- Identify and evaluate interesting driving scenarios and datasets.
-- Launch the interactive dashboard for exploring fleet metrics, events, scenarios, datasets, and insights.
-
-## Features
-
-### 1. Fleet Telemetry Pipeline
-Ingests telemetry, validates and transforms it, organizes it into datasets, and serves those datasets to downstream analytics and visualization tools.
-
-### 2. Metrics Engine
-Derives meaningful driving events and performance metrics from telemetry, then surfaces trends, patterns, and notable behaviors that support engineering decisions and deeper investigation.
-
-### 3. Fleet Data SDK + Automated Analysis Workflows
-Provides reusable tools that make common fleet-data tasks faster and more consistent, including querying telemetry, calculating metrics, retrieving events, generating analyses, and creating derived datasets.
-
-### 4. Scenario Miner + Dataset Evaluation Framework
-Identify and organize interesting driving scenarios, create targeted datasets around specific behaviors or conditions, and evaluate those datasets for coverage, diversity, redundancy, and usefulness so selection criteria can improve over time.
-
-### 5. Interactive Fleet Intelligence Dashboard
-An interactive analytical interface that moves from high-level metrics to event categories, individual drives, specific scenarios, and derived datasets so users can understand what changed, where it occurred, and what deserves attention.
