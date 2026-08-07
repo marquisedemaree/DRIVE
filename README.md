@@ -93,3 +93,18 @@ The sample dataset includes 3 csv files from Tesla Model 3 Autopilot On-road. DR
 ### Analytics Pipeline
 <img width="1342" height="817" alt="Screenshot 2026-08-07 at 3 35 12 PM" src="https://github.com/user-attachments/assets/14e258d7-10c4-44c9-98e6-ac0ae9ef503c" />
 
+### Database Tables
+
+DRIVE uses SQLite to persist each stage of the analytics pipeline in `DRIVE/data/drive.db`.
+
+| Table | Purpose |
+|---|---|
+| `ingestion_runs` | Records metadata and processing statistics for telemetry ingestion runs. |
+| `telemetry` | Stores cleaned, validated, and normalized vehicle telemetry used as the foundation for downstream analysis. |
+| `events` | Stores detected Autopilot disengagement events and vehicle dynamics at the moment of disengagement. |
+| `scenario_telemetry` | Stores time-aligned telemetry surrounding each disengagement for analysis before and after the event. |
+| `scenarios` | Stores one summary record per disengagement scenario, including pre/post-event behavior and peak vehicle responses. |
+| `temporal_analysis` | Stores aggregate speed and acceleration statistics across disengagement scenarios aligned relative to the disengagement time. |
+| `critical_scenarios` | Stores scenarios that cross harsh-braking or hard-turning thresholds following disengagement. |
+| `insights_summary` | Stores high-level counts, percentages, and thresholds used in the Critical Insights dashboard. |
+| `critical_findings` | Stores presentation-ready details for critical scenarios used by the Critical Findings table and scenario drill-down. |
