@@ -84,3 +84,8 @@ Scenario Drill-Down provides a detailed view of a single critical scenario selec
 
 ### Data Flow Summary
 <img width="1342" height="115" alt="Screenshot 2026-08-07 at 2 49 42 PM" src="https://github.com/user-attachments/assets/eca3c4d9-2e86-4e0a-b993-dde5e241d787" />
+
+### Data Sourcing
+<img width="500" height="115" alt="Screenshot 2026-08-07 at 3 03 36 PM" src="https://github.com/user-attachments/assets/a6c462c2-eee2-4a94-9440-42f65098b1a2" />
+
+The sample dataset includes 3 csv files from Tesla Model 3 Autopilot On-road. DRIVE performs automatic file discovery for all csv files located in the directory specified by 'TESLA_MODEL3_DATA_DIR' in config.py.
