@@ -48,7 +48,7 @@ http://localhost:8000
 docker compose down
 ```
 
-## Features
+## Dashboard Features
 
 ### Pipeline Overview
 <img width="1458" height="263" alt="Screenshot 2026-07-30 at 12 38 58 PM" src="https://github.com/user-attachments/assets/678b5e46-a169-4cb4-9a60-b0eceb9716f6" />
@@ -88,7 +88,7 @@ Scenario Drill-Down provides a detailed view of a single critical scenario selec
 ### Data Sourcing
 <img width="1342" height="115" alt="Screenshot 2026-08-07 at 3 12 23 PM" src="https://github.com/user-attachments/assets/a07d705c-d58d-469f-8b19-b68c2f22c82c" />
 
-The sample dataset includes 3 csv files from Tesla Model 3 Autopilot On-road. DRIVE performs automatic file discovery for all csv files located in the directory specified by 'TESLA_MODEL3_DATA_DIR' in config.py.
+The sample dataset includes 3 csv files from Tesla Model 3 Autopilot On-road. DRIVE performs automatic file discovery for all csv files located in the directory specified by 'TESLA_MODEL3_DATA_DIR' in `config.py`.
 
 ### Analytics Pipeline
 <img width="1342" height="817" alt="Screenshot 2026-08-07 at 3 35 12 PM" src="https://github.com/user-attachments/assets/14e258d7-10c4-44c9-98e6-ac0ae9ef503c" />
@@ -100,11 +100,35 @@ DRIVE uses SQLite to persist each stage of the analytics pipeline in `DRIVE/data
 | Table | Purpose |
 |---|---|
 | `ingestion_runs` | Records metadata and processing statistics for telemetry ingestion runs. |
-| `telemetry` | Stores cleaned, validated, and normalized vehicle telemetry used as the foundation for downstream analysis. |
-| `events` | Stores detected Autopilot disengagement events and vehicle dynamics at the moment of disengagement. |
-| `scenario_telemetry` | Stores time-aligned telemetry surrounding each disengagement for analysis before and after the event. |
+| `telemetry` | Stores cleaned, validated, and normalized vehicle telemetry. |
+| `events` | Stores Autopilot disengagement events and vehicle dynamics at the moment of disengagement. |
+| `scenario_telemetry` | Stores telemetry surrounding each disengagement for analysis before and after the event. |
 | `scenarios` | Stores one summary record per disengagement scenario, including pre/post-event behavior and peak vehicle responses. |
-| `temporal_analysis` | Stores aggregate speed and acceleration statistics across disengagement scenarios aligned relative to the disengagement time. |
+| `temporal_analysis` | Stores aggregate speed and acceleration statistics across disengagement scenarios. |
 | `critical_scenarios` | Stores scenarios that cross harsh-braking or hard-turning thresholds following disengagement. |
 | `insights_summary` | Stores high-level counts, percentages, and thresholds used in the Critical Insights dashboard. |
-| `critical_findings` | Stores presentation-ready details for critical scenarios used by the Critical Findings table and scenario drill-down. |
+| `critical_findings` | Stores details for critical scenarios used by the Critical Findings table and scenario drill-down. |
+
+### API Endpoints
+
+DRIVE uses a FastAPI REST API to serve persisted analytics data from `DRIVE/data/drive.db` to the React dashboard.
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/api/analysis` | Returns the complete analytics dataset (pipeline statistics, event metrics, temporal analysis, and critical insights). |
+| `GET` | `/api/scenarios/{scenario_id}` | Returns detailed telemetry and findings for one selected critical scenario for the Scenario Drill-Down. |
+
+## Tech Stack
+
+| Technology | Role in DRIVE |
+|---|---|
+| **Python** | Implements the telemetry pipeline, data transformations, analytics, and backend application logic. |
+| **SQL / SQLite** | Persists pipeline datasets and performs event detection, aggregation, scenario analysis, and analytical queries. |
+| **Pandas** | Supports telemetry ingestion, cleaning, validation, and transformation. |
+| **FastAPI** | Provides the REST API that serves analytics and scenario data to the frontend. |
+| **React** | Implements the interactive analytics dashboard and scenario exploration interface. |
+| **Recharts** | Provides visualizations for event metrics, temporal analysis, and scenario drill-downs. |
+| **Vite** | Builds and bundles the React frontend. |
+| **Docker** | Containerizes the application and provides a reproducible runtime environment. |
+| **Docker Compose** | Configures and runs the containerized DRIVE application. |
+| **Git / GitHub** | Provides version control, source-code hosting, and project documentation. |
