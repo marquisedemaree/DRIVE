@@ -34,14 +34,6 @@ cd DRIVE
 docker compose up --build
 ```
 
-Docker will:
-
-- Build the React frontend
-- Install Python dependencies
-- Execute the analytics pipeline
-- Generate the SQLite analytics database
-- Start the FastAPI server
-
 ### 4. Open the dashboard
 
 Open your browser and navigate to:
