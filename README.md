@@ -21,9 +21,14 @@ Combining these observations into a temporal analysis provides context for each 
 
 ```bash
 git clone https://github.com/marquisedemaree/DRIVE.git
+```
+
+### 2. Change the directory to DRIVE
+```bash
 cd DRIVE
 ```
-### 2. Build and start DRIVE
+
+### 3. Build and start DRIVE
 
 ```bash
 docker compose up --build
@@ -37,7 +42,7 @@ Docker will:
 - Generate the SQLite analytics database
 - Start the FastAPI server
 
-### 3. Open the dashboard
+### 4. Open the dashboard
 
 Open your browser and navigate to:
 
